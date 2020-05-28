@@ -20,7 +20,8 @@ map<ll, vll>::iterator it;
 
 void CountSubArrayHasSumZero() {
     // this is for the case that prefix sum at position i is equal to 0
-    sameSum.insert(make_pair(0, make_pair(0, 0)));
+    vll temp; temp.push_back(0);
+    sameSum.insert(make_pair(0, temp));
 
     FOR(i, 0, n) {
         prefixSum += a[i];
@@ -29,7 +30,7 @@ void CountSubArrayHasSumZero() {
             it->second.push_back(i+1);
         else {
             vll vect;
-            vect.push_back(i+1)
+            vect.push_back(i+1);
             sameSum.insert(make_pair(prefixSum, vect));
         }
     }
