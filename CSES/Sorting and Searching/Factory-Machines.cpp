@@ -22,7 +22,7 @@ bool check(ll m) {
     FOR(i,0,n) {
         res += min(m/a[i],(ll)1e9);
     }
-    return res>=x;
+    return res>=x;  
 }
 
 int main() {
