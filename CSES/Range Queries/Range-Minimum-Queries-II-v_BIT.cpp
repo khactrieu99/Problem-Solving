@@ -25,6 +25,7 @@ void get(int i, int j) {
             res=min(res,f[j]);
             j-=(j&-j);
         }
+        else res=min(res,x[--j]);
     }
     cout << res << endl;
 }
@@ -43,6 +44,7 @@ int main () {
         if(t==1) {
             cin >> k >> u;
             update(k,u);
+            x[k-1]=u;
         }
         else if(t==2) {
             cin >> a >> b;
