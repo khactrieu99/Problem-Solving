@@ -9,16 +9,46 @@ typedef vector<ll> vll;
 typedef pair<int,int> pii;
 
 int n, m, r;
-vi h;
+vi h, f;
+
+void update(int id, int l, int r, int i, int val) {
+    if(i<l || i>r) return;
+    if(l==r) {
+        f[id]=val;
+        return;
+    }
+
+    int mid=(l+r)/2;
+    update(id*2,l,mid,i,val);
+    update(id*2+1,mid+1,r,i,val);
+
+    f[id]=max(f[id*2],f[id*2+1]);
+}
+
+int get(int id, int l, int r, int val) {
+    int mid=(l+r)/2;
+    if(f[id*2]>=val) return get(id*2,l,mid,val);
+    else if(f[id*2+1]>=val) return get(id*2+1,mid+1,r,val);
+    else return 0;
+    
+    if(l==r) {
+        update(1,1,n,l,h[l-1]-val);
+        return l;
+    }
+}
 
 int main() {
     cin >> n >> m;
     h.resize(n);
-    for(auto &val: h) cin >> val;
+    f.resize(n*4);
+    for(int i=0; i<n; i++) {
+        cin >> h[i];
+        update(1,1,n,i+1,h[i]);
+    }
     
     while(m--) {
         cin >> r;
-    
+        cout << get(1,1,n,r) << endl;
     }
     return 0;
 }
