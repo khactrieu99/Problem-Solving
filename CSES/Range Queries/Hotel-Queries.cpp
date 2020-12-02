@@ -27,7 +27,7 @@ void update(int id, int l, int r, int i, int val) {
 
 int get(int id, int l, int r, int val) { 
     if(l==r) {
-        update(1,1,n,l,h[l-1]-val);
+        update(1,1,n,l,h[l-1]-=val);
         return l;
     }
 
@@ -41,7 +41,7 @@ int get(int id, int l, int r, int val) {
 int main() {
     cin >> n >> m;
     h.resize(n);
-    f.resize(n*4);
+    f.resize(n*4+1);
     for(int i=0; i<n; i++) {
         cin >> h[i];
         update(1,1,n,i+1,h[i]);
@@ -49,7 +49,7 @@ int main() {
     
     while(m--) {
         cin >> r;
-        cout << get(1,1,n,r) << " ";
+        cout << ( f[1] < r ? 0 : get(1,1,n,r) ) << " "; 
     }
     cout << endl;
     return 0;
