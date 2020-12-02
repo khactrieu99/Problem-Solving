@@ -25,16 +25,17 @@ void update(int id, int l, int r, int i, int val) {
     f[id]=max(f[id*2],f[id*2+1]);
 }
 
-int get(int id, int l, int r, int val) {
-    int mid=(l+r)/2;
-    if(f[id*2]>=val) return get(id*2,l,mid,val);
-    else if(f[id*2+1]>=val) return get(id*2+1,mid+1,r,val);
-    else return 0;
-    
+int get(int id, int l, int r, int val) { 
     if(l==r) {
         update(1,1,n,l,h[l-1]-val);
         return l;
     }
+
+    int mid=(l+r)/2;
+    if(f[id*2]>=val) return get(id*2,l,mid,val);
+    if(f[id*2+1]>=val) return get(id*2+1,mid+1,r,val);
+
+    return 0;
 }
 
 int main() {
@@ -48,7 +49,8 @@ int main() {
     
     while(m--) {
         cin >> r;
-        cout << get(1,1,n,r) << endl;
+        cout << get(1,1,n,r) << " ";
     }
+    cout << endl;
     return 0;
 }
