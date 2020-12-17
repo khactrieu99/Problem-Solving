@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+#define MAXN 1005
+
 typedef long long ll;
 typedef vector<char> vc;
 typedef vector<bool> vb;
@@ -11,13 +13,12 @@ typedef struct {
 
 int n, m;
 
-vector<vc> g;
-vector<vb> isVisited;
+char g[MAXN][MAXN], mdir[MAXN][MAXN];
+bool isVisited[MAXN][MAXN];
 coor start, destination;
-vector< vector<char> > mdir;
 
 char direction[4] = {'L', 'R', 'U', 'D'};
-coor fw['U'-'A'+1], bw['U'-'A'+1];
+coor fw['U'-'A'+2], bw['U'-'A'+2];
 
 void init() {
     fw['L'-'A']={0,-1};
@@ -34,21 +35,18 @@ void init() {
 void print() {
     cout << endl << "YES" << endl;
 
-    stack<char> s;
+    string s="";
     int i=destination.y, j=destination.x;
     while(i!=start.y||j!=start.x) {
-        s.push(mdir[i][j]);
+        s+=mdir[i][j];
         int dir = mdir[i][j]-'A';
         i+=bw[dir].y;
         j+=bw[dir].x;
     }
-    cout << s.size() << endl; 
-    while(!s.empty()) {
-        cout << s.top();
-        s.pop();
-    }
-
-    cout << endl;
+    cout << s.length() << endl; 
+    reverse(s.begin(), s.end());
+    
+    cout << s << endl;
 }
 
 void findPath() {
@@ -76,17 +74,10 @@ void findPath() {
 int main() {
     init();
     cin >> n >> m;
-    g.resize(n+2);
-    mdir.resize(n+2);
-    isVisited.resize(n+2);
-    for(int i=0; i<n+2; i++) {
-        g[i].resize(m+2);
-        isVisited[i].resize(m+2);
-        mdir[i].resize(m+2,'#');
-    }
 
     for(int i=0; i<n+2; i++) {
         for(int j=0; j<m+2; j++) {
+            mdir[i][j]='#';
             isVisited[i][j]=true;
             if(i>0&&j>0&&i<n+1&&j<m+1) {
                 cin >> g[i][j];
