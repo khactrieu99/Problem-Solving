@@ -6,52 +6,83 @@ typedef vector<char> vc;
 typedef vector<bool> vb;
 
 typedef struct {
-    int x, y;
+    int y, x;
 } coor;
 
-typedef pair<coor,char> bfs; // first is coordinate (x,y), second is the move ['L','R','D','U']
-
-int x[] = {1, -1, 0, 0};
-int y[] = {0, 0, 1, -1};
-char m[] = {'R', 'L', 'D', 'U'};
-
 int n, m;
-bool flag=false;
+
 vector<vc> g;
-vc path;
 vector<vb> isVisited;
 coor start, destination;
+vector< vector<char> > mdir;
 
-void printPath() {
+char direction[4] = {'L', 'R', 'U', 'D'};
+coor fw['U'-'A'+1], bw['U'-'A'+1];
+
+void init() {
+    fw['L'-'A']={0,-1};
+    fw['R'-'A']={0, 1};
+    fw['U'-'A']={-1,0};
+    fw['D'-'A']={1, 0};
+
+    bw['L'-'A']={0, 1};
+    bw['R'-'A']={0,-1};
+    bw['U'-'A']={1, 0};
+    bw['D'-'A']={-1,0};
+}
+
+void print() {
     cout << endl << "YES" << endl;
-    cout << path.size() << endl;
-    for(auto c: path) {
-        cout << c;
+
+    stack<char> s;
+    int i=destination.y, j=destination.x;
+    while(i!=start.y||j!=start.x) {
+        s.push(mdir[i][j]);
+        int dir = mdir[i][j]-'A';
+        i+=bw[dir].y;
+        j+=bw[dir].x;
     }
+    cout << s.size() << endl; 
+    while(!s.empty()) {
+        cout << s.top();
+        s.pop();
+    }
+
     cout << endl;
 }
 
-void findPath(bfs p) {
-    queue<bfs > q;    
-    q.push(p);
+void findPath() {
+    queue<coor> q;
+    q.push(start);
     while(!q.empty()) {
-        coor t = p.first; 
+        coor temp=q.front(); q.pop();
+        isVisited[temp.y][temp.x]=true;
+        if(g[temp.y][temp.x]=='B') {
+            print();
+            return;
+        }
         for(int i=0; i<4; i++) {
-            if(g[t.y+y[i]][t.x+x[i]]!='#') {
-                coor next = {t.x+x[i], t.y+y[i]}
-                q.push(make_pair(next,p.second);
+            coor muv=fw[direction[i]-'A'];
+            coor next={temp.y+muv.y, temp.x+muv.x};
+            if(!isVisited[next.y][next.x]) {
+                q.push(next);
+                mdir[next.y][next.x]=direction[i];
             }
-        }        
+        }
     }
+    cout << "NO" << endl;
 }
 
 int main() {
+    init();
     cin >> n >> m;
     g.resize(n+2);
+    mdir.resize(n+2);
     isVisited.resize(n+2);
     for(int i=0; i<n+2; i++) {
-        g[i].resize(n+2);
-        isVisited[i].resize(n+2);
+        g[i].resize(m+2);
+        isVisited[i].resize(m+2);
+        mdir[i].resize(m+2,'#');
     }
 
     for(int i=0; i<n+2; i++) {
@@ -67,12 +98,12 @@ int main() {
                     destination.y=i;
                     destination.x=j;
                 }
-                isVisited[i][j]=false;
+                if(g[i][j]!='#') isVisited[i][j]=false;
             }
         }
     }
 
-    findPath(make_pair(start,' '));
+    findPath();
 
     return 0;
 }
