@@ -30,12 +30,6 @@ bool isValid(int i, int j) {
 }
 
 void print(pii des) {
-    //for(int i=0; i<n; i++) {
-    //    for(int j=0; j<m; j++) {
-    //        cout << p[i][j] << " ";
-    //    }
-    //    cout << endl;
-    //}
     cout << "YES" << endl;
 
     stack<char> s;
@@ -111,15 +105,17 @@ int main() {
 
     for(int i=0; i<n; i++) {
         for(int j=0; j<m; j++) {
-            //p[i][j]='#';
+            dist[i][j]=INT_MAX;
             cin >> graph[i][j];
             if(graph[i][j]=='M') {
                 monsters.push(make_pair(i,j));
                 isVisited[i][j]=true;
+                dist[i][j]=0;
             }
             if(graph[i][j]=='A') {
                 start.first=i;
                 start.second=j;
+                dist[i][j]=0;
             }
         }
     }
