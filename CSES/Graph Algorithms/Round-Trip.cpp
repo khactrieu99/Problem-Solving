@@ -13,18 +13,36 @@ int p[MAXN];
 bool isVisited[MAXN];
 vector<vi> v;
 
-void dfs(int i) {
+void print(int from, int to) {
+    stack<int> s;
+    s.push(to);
+    while(from!=to) {
+        s.push(from);
+        from=p[from];
+    }   
+    s.push(to);
+    cout << s.size() << endl;
+    while(!s.empty()) {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+}   
+
+bool dfs(int i) {
     isVisited[i]=true;
     for(auto val: v[i]) {
-        if(isVisited[val]) {
+        if(isVisited[val]&&p[i]!=val) {
             print(i, val);
-            return;
+            return true;
         }
-        else {
+        else if(!isVisited[val]) {
             p[val]=i;
-            dfs(val);
+            if(dfs(val)) return true;
         } 
     }
+
+    return false;
 }
 
 int main() {
@@ -37,10 +55,10 @@ int main() {
         v[x].push_back(y);
         v[y].push_back(x);
     }
-    i//for(int i=1; i<=n; i++) p[i]=i; 
+    for(int i=1; i<=n; i++) p[i]=i; 
     for(int i=1; i<=n; i++) {
         if(!isVisited[i]) {
-            if(bfs(i)) return 0;
+            if(dfs(i)) return 0;
         }
     }
 
