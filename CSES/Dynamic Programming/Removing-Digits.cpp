@@ -1,24 +1,28 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-const int MAX = 1e6;
+#define MAX 1000001
+
 int n;
-vector<int> dp;
 
-int main() {
-    cin >> n;
-    dp.resize(n+1, MAX);
+int solve(int inp) {
+    vector<int> dp(inp+1, MAX);
+    
     dp[0]=0;
-
-    for(int value=1; value<=n; value++) {
-        int v=value;
-        while(v>0) {
-            int digit=v%10;
-            dp[value]=min(dp[value],dp[value-digit]+1);
-            v/=10;
+    for(int i=1; i<=inp; i++) {
+        int t=i;
+        while(t) {
+            int digit=t%10;
+            dp[i]=min(dp[i-digit]+1, dp[i]);
+            t/=10;
         }
     }
 
-    cout << dp[n] << endl;
-    return 0;
+    return dp[inp];
+}
+
+int main() {
+    cin >> n;
+    cout << solve(n) << endl;
+	return 0;
 }
