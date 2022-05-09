@@ -67,6 +67,7 @@ class LongestSubStringWithMaximumKDistinctCharacters:
             i+=1
         return res
 
+
 if __name__ == "__main__":
     # print(MaxSumSubArrayOfSizeK([2,3,4,1,5]).solve(2))
     # print(SmallestSubArrayWithAGreaterSum([3,4,1,1,6]).solve(8))
