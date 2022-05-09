@@ -59,7 +59,7 @@ class LongestSubStringWithMaximumKDistinctCharacters:
             if len(_map)<=k:
                 res=max(res,i-j+1)
             else:
-                while len(_map)>=k:
+                while len(_map)>k:
                     _map[s[j]]-=1
                     if _map[s[j]]==0:
                         del _map[s[j]]
@@ -67,8 +67,28 @@ class LongestSubStringWithMaximumKDistinctCharacters:
             i+=1
         return res
 
+class FruitsIntoBaskets:
+    def __init__(self, input):
+        self.input = input
+
+    def solve(self):
+        arr, i, j, res = self.input, 0, 0, 0
+        _map = {}
+        while i<len(arr):
+            _map[arr[i]]=_map.get(arr[i],0)+1
+            if len(_map)<=2:
+                res=max(res,i-j+1)
+            else:
+                while len(_map)>2:
+                    _map[arr[j]]-=1
+                    if _map[arr[j]]==0:
+                        del _map[arr[j]]
+                    j+=1
+            i+=1
+        return res
 
 if __name__ == "__main__":
     # print(MaxSumSubArrayOfSizeK([2,3,4,1,5]).solve(2))
     # print(SmallestSubArrayWithAGreaterSum([3,4,1,1,6]).solve(8))
-    print(LongestSubStringWithMaximumKDistinctCharacters("cbbebi").solve(10))
+    # print(LongestSubStringWithMaximumKDistinctCharacters("cbbebi").solve(10))
+    # print(FruitsIntoBaskets(['A','B','C','B','B','C']).solve())
