@@ -67,6 +67,7 @@ class LongestSubStringWithMaximumKDistinctCharacters:
             i+=1
         return res
 
+# Similar to Longest SubString With Maximum K Distinct Characters, with K=2
 class FruitsIntoBaskets:
     def __init__(self, input):
         self.input = input
@@ -87,8 +88,51 @@ class FruitsIntoBaskets:
             i+=1
         return res
 
+# Given a string, find the length of the longest substring, which has all distinct characters.
+class LongestSubStringWithDistinctCharacters:
+    def __init__(self, input):
+        self.input = input
+    
+    # Time complexity O(n)
+    # Space complexity O(26) <=> O(1)
+    def solve(self):
+        s, i, j, res = self.input, 0, 0, 0
+        hmap = {}
+
+        while i<len(s):
+            if s[i] in hmap:
+                if hmap[s[i]]>=j:
+                    j=i
+            res=max(res,i-j+1)
+            hmap[s[i]]=i
+            i+=1
+        return res
+
+# Given a string with lowercase letters only, if you are allowed to replace no more than k letters with any letter, 
+# find the length of the longest substring having the same letters after replacement.
+class LongestSubStringWithSameLettersAfterReplacement:
+    def __init__(self, input):
+        self.input = input
+    
+    def solve(self, k):
+        s, i, j, curMax, res = self.input, 0, 0, 0, 0
+        hmap = {}
+        while i<len(s):
+            hmap[s[i]]=hmap.get(s[i],0)+1
+            curMax = max(curMax, hmap[s[i]])
+
+            if i-j+1-curMax > k:
+                hmap[s[j]]-=1
+                j+=1
+            
+            res = max(res, i-j+1)
+            i+=1
+        return res
+
 if __name__ == "__main__":
     # print(MaxSumSubArrayOfSizeK([2,3,4,1,5]).solve(2))
     # print(SmallestSubArrayWithAGreaterSum([3,4,1,1,6]).solve(8))
     # print(LongestSubStringWithMaximumKDistinctCharacters("cbbebi").solve(10))
     # print(FruitsIntoBaskets(['A','B','C','B','B','C']).solve())
+    # print(LongestSubStringWithDistinctCharacters("abccde").solve())
+    print(LongestSubStringWithSameLettersAfterReplacement("abccde").solve(1))
