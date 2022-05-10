@@ -129,6 +129,8 @@ class LongestSubStringWithSameLettersAfterReplacement:
             i+=1
         return res
 
+# Given an array containing 0s and 1s, if you are allowed to replace no more than ‘k’ 0s with 1s, 
+# find the length of the longest contiguous subarray having all 1s.
 class LongestSubArrayWithOnesAfterReplacement:
     def __init__(self, input):
         self.input = input
@@ -147,7 +149,15 @@ class LongestSubArrayWithOnesAfterReplacement:
             res=max(res,i-j+1)
             i+=1
         return res
-            
+
+# Given a string and a pattern, find out if the string contains any permutation of the pattern.
+class PermutationInAString:
+    def __init__(self, input, str):
+        self.input = input
+        self.str = str
+
+    def solve():
+        return False
 
 if __name__ == "__main__":
     # print(MaxSumSubArrayOfSizeK([2,3,4,1,5]).solve(2))
@@ -156,4 +166,5 @@ if __name__ == "__main__":
     # print(FruitsIntoBaskets(['A','B','C','B','B','C']).solve())
     # print(LongestSubStringWithDistinctCharacters("abccde").solve())
     # print(LongestSubStringWithSameLettersAfterReplacement("abccde").solve(1))
-    print(LongestSubArrayWithOnesAfterReplacement([0,1,0,0,1,1,0,1,1,0,0,1,1]).solve(3))
+    # print(LongestSubArrayWithOnesAfterReplacement([0,1,0,0,1,1,0,1,1,0,0,1,1]).solve(3))
+    print(PermutationInAString("oidbcaf", "abc").solve())
