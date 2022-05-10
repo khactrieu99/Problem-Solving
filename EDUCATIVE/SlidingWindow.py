@@ -129,10 +129,31 @@ class LongestSubStringWithSameLettersAfterReplacement:
             i+=1
         return res
 
+class LongestSubArrayWithOnesAfterReplacement:
+    def __init__(self, input):
+        self.input = input
+    
+    def solve(self, k):
+        arr, i, j, res= self.input, 0, 0, 0
+        hmap = {}
+        while i<len(arr):  
+            hmap[arr[i]]=hmap.get(arr[i],0)+1     
+            maxInSlice = max(hmap.get(0,0), hmap.get(1,0))
+
+            if i-j+1-maxInSlice > k:
+                hmap[arr[j]]-=1
+                j+=1
+
+            res=max(res,i-j+1)
+            i+=1
+        return res
+            
+
 if __name__ == "__main__":
     # print(MaxSumSubArrayOfSizeK([2,3,4,1,5]).solve(2))
     # print(SmallestSubArrayWithAGreaterSum([3,4,1,1,6]).solve(8))
     # print(LongestSubStringWithMaximumKDistinctCharacters("cbbebi").solve(10))
     # print(FruitsIntoBaskets(['A','B','C','B','B','C']).solve())
     # print(LongestSubStringWithDistinctCharacters("abccde").solve())
-    print(LongestSubStringWithSameLettersAfterReplacement("abccde").solve(1))
+    # print(LongestSubStringWithSameLettersAfterReplacement("abccde").solve(1))
+    print(LongestSubArrayWithOnesAfterReplacement([0,1,0,0,1,1,0,1,1,0,0,1,1]).solve(3))
