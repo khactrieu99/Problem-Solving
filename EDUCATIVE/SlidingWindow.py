@@ -150,15 +150,6 @@ class LongestSubArrayWithOnesAfterReplacement:
             i+=1
         return res
 
-# Given a string and a pattern, find out if the string contains any permutation of the pattern.
-class PermutationInAString:
-    def __init__(self, input, str):
-        self.input = input
-        self.str = str
-
-    def solve():
-        return False
-
 if __name__ == "__main__":
     # print(MaxSumSubArrayOfSizeK([2,3,4,1,5]).solve(2))
     # print(SmallestSubArrayWithAGreaterSum([3,4,1,1,6]).solve(8))
@@ -167,4 +158,3 @@ if __name__ == "__main__":
     # print(LongestSubStringWithDistinctCharacters("abccde").solve())
     # print(LongestSubStringWithSameLettersAfterReplacement("abccde").solve(1))
     # print(LongestSubArrayWithOnesAfterReplacement([0,1,0,0,1,1,0,1,1,0,0,1,1]).solve(3))
-    print(PermutationInAString("oidbcaf", "abc").solve())
