@@ -97,8 +97,31 @@ class TripletSumToZero:
             else:
                 start+=1
 
+# Given an array arr of unsorted numbers and a target sum, count all triplets in it such that arr[i] + arr[j] + arr[k] < target 
+# where i, j, and k are three different indices. Write a function to return the count of such triplets.
+class TripletWithSmallestSum:
+    def __init__(self, input, target):
+        self.input, self.target = input, target
+
+    def solve(self):
+        arr, target, res = self.input, self.target, 0
+
+        arr.sort()
+
+        for k in range(len(arr)):
+            newTarget = target - arr[k]
+            i, j = k+1, len(arr)-1
+            while i<j:
+                if arr[i]+arr[j]<newTarget:
+                    res += j-i
+                    i += 1
+                else:
+                    j -= 1
+        return res
+
 if __name__ == "__main__":
     #print(PairWithTargetSum([2, 5, 9, 11], 11).solve())
     #print(RemoveDuplicates([2, 2, 2, 11]).solve())
     #print(SquaringASortesArray([4,6,8,9]).solve())
     #print(TripletSumToZero([-3, 0, 1, 2, -1, 1, -2]).solve())
+    print(TripletWithSmallestSum([-1, 4, 2, 1, 3], 5).solve())
