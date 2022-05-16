@@ -145,10 +145,31 @@ class SubarrayWithProductLessThanATarget:
 
         return res
 
+class DutchNationalFlagProblem:
+    def __init__(self, input):
+        self.input = input
+
+    def solve(self):
+        arr = self.input
+        i, low, high = 0, 0, len(arr)-1
+
+        while i<=high:
+            if arr[i] == 0:
+                arr[i], arr[low] = arr[low], arr[i]
+                i+=1
+                low+=1
+            elif arr[i] == 1:
+                i+=1
+            else:
+                arr[i], arr[high] = arr[high], arr[i]
+                high-=1
+        return arr
+
 if __name__ == "__main__":
     #print(PairWithTargetSum([2, 5, 9, 11], 11).solve())
     #print(RemoveDuplicates([2, 2, 2, 11]).solve())
     #print(SquaringASortesArray([4,6,8,9]).solve())
     #print(TripletSumToZero([-3, 0, 1, 2, -1, 1, -2]).solve())
     #print(TripletWithSmallestSum([-1, 4, 2, 1, 3], 5).solve())
-    print(SubarrayWithProductLessThanATarget([8, 2, 6, 5],50).solve())
+    #print(SubarrayWithProductLessThanATarget([8, 2, 6, 5],50).solve())
+    print(DutchNationalFlagProblem([2, 2, 0, 1, 2, 0]).solve())
