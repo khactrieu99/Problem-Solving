@@ -1,3 +1,6 @@
+from re import sub
+
+
 NUMBER_MAX_VALUE=1<<32
 
 # Given an array of sorted numbers and a target sum, 
@@ -119,9 +122,35 @@ class TripletWithSmallestSum:
                     j -= 1
         return res
 
+# Given an array with positive numbers and a positive target number, 
+# find all of its contiguous subarrays whose product is less than the target number.
+class SubarrayWithProductLessThanATarget:
+    def __init__(self, input, target):
+        self.input, self.target = input, target
+
+    def solve(self):
+        arr, target, res, pf = self.input, self.target, [], []
+        arr.sort()
+
+        pf.append(arr[0])
+        for i in range(1,len(arr)):
+            pf.append(pf[i-1]*arr[i])
+        
+        for i in range(len(arr)):
+            subFromI = []
+            for j in range(i,len(arr)):
+                product = pf[j]/pf[i] * arr[i]
+                if product < target:
+                    subFromI.append(arr[j])
+                    print(subFromI)
+                    res.append(subFromI)
+
+        return res
+
 if __name__ == "__main__":
     #print(PairWithTargetSum([2, 5, 9, 11], 11).solve())
     #print(RemoveDuplicates([2, 2, 2, 11]).solve())
     #print(SquaringASortesArray([4,6,8,9]).solve())
     #print(TripletSumToZero([-3, 0, 1, 2, -1, 1, -2]).solve())
-    print(TripletWithSmallestSum([-1, 4, 2, 1, 3], 5).solve())
+    #print(TripletWithSmallestSum([-1, 4, 2, 1, 3], 5).solve())
+    print(SubarrayWithProductLessThanATarget([2, 5, 3, 10],30).solve())
