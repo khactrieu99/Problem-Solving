@@ -130,7 +130,6 @@ class SubarrayWithProductLessThanATarget:
 
     def solve(self):
         arr, target, res, pf = self.input, self.target, [], []
-        arr.sort()
 
         pf.append(arr[0])
         for i in range(1,len(arr)):
@@ -142,8 +141,7 @@ class SubarrayWithProductLessThanATarget:
                 product = pf[j]/pf[i] * arr[i]
                 if product < target:
                     subFromI.append(arr[j])
-                    print(subFromI)
-                    res.append(subFromI)
+                    res.append(list(subFromI))
 
         return res
 
@@ -153,4 +151,4 @@ if __name__ == "__main__":
     #print(SquaringASortesArray([4,6,8,9]).solve())
     #print(TripletSumToZero([-3, 0, 1, 2, -1, 1, -2]).solve())
     #print(TripletWithSmallestSum([-1, 4, 2, 1, 3], 5).solve())
-    print(SubarrayWithProductLessThanATarget([2, 5, 3, 10],30).solve())
+    print(SubarrayWithProductLessThanATarget([8, 2, 6, 5],50).solve())
