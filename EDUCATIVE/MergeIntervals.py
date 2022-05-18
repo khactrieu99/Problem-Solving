@@ -1,5 +1,7 @@
 NUMBER_MAX_VALUE=1<<32
 
+# Given a list of intervals, 
+# merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
 class MergeIntervals:
 	def __init__(self, input):
   		self.input = input
@@ -19,5 +21,13 @@ class MergeIntervals:
 			
 		return res
 
+class InvertIntervals:
+	def __init__(self, intervals, newIntervals):
+  		self.intervals, self.newIntervals = intervals, newIntervals
+
+	def solve(self):
+		intervals, newIntervals = self.intervals, self.newIntervals
+
 if __name__ == "__main__":
-	print(MergeIntervals([[1,4]]).solve())
+	#print(MergeIntervals([[1,4]]).solve())
+	print(InvertIntervals([[1,3], [5,7], [8,12]], [4,6]).solve())
