@@ -68,7 +68,18 @@ class IntervalsIntersection:
 				j+=1
 		return res
 
+# Given an array of intervals representing ‘N’ appointments, 
+# find out if a person can attend all the appointments.
+class ConflictingAppointments:
+	def __init__(self, input):
+  		self.input = input
+	
+	def solve(self):
+		input = self.input
+
+
 if __name__ == "__main__":
 	#print(MergeIntervals([[1,4]]).solve())
 	#print(InvertIntervals([[2,3],[5,7]], [1,4]).solve())
-	print(IntervalsIntersection([[1, 3], [5, 7], [9, 12]], [[5, 10]]).solve())
+	#print(IntervalsIntersection([[1, 3], [5, 7], [9, 12]], [[5, 10]]).solve())
+	print(ConflictingAppointments([[1,4], [2,5], [7,9]]).solve())
