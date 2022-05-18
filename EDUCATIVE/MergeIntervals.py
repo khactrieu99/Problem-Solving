@@ -1,3 +1,6 @@
+from math import fabs
+
+
 NUMBER_MAX_VALUE=1<<32
 
 # Given a list of intervals, 
@@ -71,15 +74,21 @@ class IntervalsIntersection:
 # Given an array of intervals representing ‘N’ appointments, 
 # find out if a person can attend all the appointments.
 class ConflictingAppointments:
-	def __init__(self, input):
-  		self.input = input
+	def __init__(self, arr):
+  		self.input = arr
 	
 	def solve(self):
-		input = self.input
+		arr = self.input
+		arr.sort(key= lambda x: x[0])
 
+		for i in range(1,len(arr)):
+			if arr[i][0] <= arr[i-1][1]:
+				return False
+
+		return True
 
 if __name__ == "__main__":
 	#print(MergeIntervals([[1,4]]).solve())
 	#print(InvertIntervals([[2,3],[5,7]], [1,4]).solve())
 	#print(IntervalsIntersection([[1, 3], [5, 7], [9, 12]], [[5, 10]]).solve())
-	print(ConflictingAppointments([[1,4], [2,5], [7,9]]).solve())
+	print(ConflictingAppointments([[4,5], [2,3], [3,6]]).solve())
