@@ -124,7 +124,30 @@ class MaximumDistinctElements:
 
 		return max(0,ans-k)
 
+class SumOfElements:
+	def __init__(self, input, k1, k2):
+		self.input = input
+		self.k1 = k1
+		self.k2 = k2
+
+	def solve(self):
+		arr, k1, k2 = self.input, self.k1, self.k2
+		maxheap, ans = [], 0
+
+		for val in arr:
+			if len(maxheap) < k2-1:		
+				heappush(maxheap, -val)
+			elif -maxheap[0] > val:
+				heappop(maxheap)
+				heappush(maxheap, -val)
+
+		for _ in range(k2 - k1 -1):
+			ans += -heappop(maxheap)
+
+		return ans
+
 if __name__ == "__main__":
 	#print(ConnectRopes([1, 3, 11, 5]).solve())
 	#print(KClosestNumbers([5, 6, 7, 8, 9], 3, 7).solve())
-	print(MaximumDistinctElements([7, 3, 5, 8, 5, 3, 3], 2).solve())
+	#print(MaximumDistinctElements([7, 3, 5, 8, 5, 3, 3], 2).solve())
+	print(SumOfElements([3, 5, 8, 7], 1, 4).solve())
